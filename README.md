@@ -34,3 +34,16 @@ Purpose: To delete the stale snapshots from the AWS account.
 Step1: To list out all the EBS snapshots.
 Step2: To Filter out the stale snapshots. 
 
+Practical:
+1)First of all, create an IAM role - Cost_optimize_role
+2)Create a IAM policy - with DescribeInstance, Describevolume, Describesbapshots, Deletesnapshots permissions.
+3)Attach this policy with IAM role.
+4)Now create a lambda function , deploy python code from Git repository.
+5)Now create a EC2 instance, a volume will created attached to it. 
+6)Now take a snapshot of this volume.
+7)Now create a separate new volume and take a snapshot for this new volume as well
+8)In the python code, it is mentioned Snapshots which are stale will be deleted.
+9)Now test the lambda function, It will delete the 2nd volume snapshot , Because that volume is not attached to a running instance.
+10)Now terminate the EC2 instance and again run the lambda function. This time first snapshot will be deleted because it is stale now. 
+
+
